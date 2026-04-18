@@ -22,3 +22,9 @@ func set_rank(n:int) -> void:
 
 func set_highlighted(on: bool) -> void:
 	modulate = Color(1.0, 0.85, 0.2) if on else Color.WHITE
+
+func set_as_ellipsis() -> void:
+	flag.hide()
+	rank.text = ""
+	player_name.text = "..."
+	time.hide()

@@ -2,10 +2,14 @@ extends Control
 
 const SCORE_LIST_ITEM = preload("res://scenes/score_list_item.tscn")
 
+var _scores_loaded: bool = false
 var _player_rank: int = -1
+var _player_score: Dictionary = {}
 
 func refresh() -> void:
+	_scores_loaded = false
 	_player_rank = -1
+	_player_score = {}
 	for child in %Scores.get_children():
 		child.queue_free()
 	fetch_scores()
@@ -52,7 +56,8 @@ func _on_scores_received(result: int, response_code: int, _headers: PackedString
 		item.set_player_name(score.get("player_name", ""))
 		item.set_time_us(score.get("reaction_us", 0))
 
-	_apply_highlight()
+	_scores_loaded = true
+	_update_player_row()
 
 func _fetch_player_score() -> void:
 	var device_id := OS.get_unique_id()
@@ -75,12 +80,31 @@ func _on_player_score_received(result: int, response_code: int, _headers: Packed
 		return
 
 	_player_rank = json.data.get("rank", -1)
-	_apply_highlight()
+	_player_score = json.data.get("score", {})
+	_update_player_row()
 
-func _apply_highlight() -> void:
-	if (_player_rank < 1):
+func _update_player_row() -> void:
+	if (not _scores_loaded or _player_rank < 1):
 		return
+
 	for child in %Scores.get_children():
-		var item := child as ScoreListItem
-		if (item):
-			item.set_highlighted(item.get_meta("rank", -1) == _player_rank)
+		var existing := child as ScoreListItem
+		if (existing and existing.get_meta("rank", -1) == _player_rank):
+			existing.set_highlighted(true)
+			return
+
+	if (_player_rank > 11):
+		var ellipsis = SCORE_LIST_ITEM.instantiate()
+		%Scores.add_child(ellipsis)
+		ellipsis.set_as_ellipsis()
+
+	var item = SCORE_LIST_ITEM.instantiate()
+	%Scores.add_child(item)
+	item.set_meta("rank", _player_rank)
+	item.set_rank(_player_rank)
+	item.set_player_name(_player_score.get("player_name", ""))
+	item.set_time_us(_player_score.get("reaction_us", 0))
+	var country_code: String = _player_score.get("country", "")
+	if (country_code != ""):
+		item.set_country(country_code)
+	item.set_highlighted(true)
