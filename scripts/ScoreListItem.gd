@@ -19,3 +19,6 @@ func set_country(country_code: String) -> void:
 
 func set_rank(n:int) -> void:
 	rank.text = str(n)
+
+func set_highlighted(on: bool) -> void:
+	modulate = Color(1.0, 0.85, 0.2) if on else Color.WHITE
