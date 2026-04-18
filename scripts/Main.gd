@@ -3,16 +3,28 @@ extends Control
 
 const API_URL = "http://localhost:3000/scores"
 
-var country:String = "ZA"
-var playerName:String
+static var country:String
+static var playerName:String
+static var playerTime:int
+
 var fireTime:int = 0
 var pistolFired:bool = false
-var playerTime:int
 
 func _ready() -> void:
 	%ScoreSubmission.hide()
-	%Label.text = "Get ready..."
+	%Label.text = ""
 	%Response.text = ""
+
+	if (!country):
+		country = Global.pick_random_country()
+		%CountrySelector.show()
+
+	_update_country()
+
+func start() -> void:
+	%StartButton.hide()
+	
+	%Label.text = "Get ready..."
 
 	# Start after a random delay to prevent anticipation
 	var delay = randf_range(2.0, 8.0)
@@ -96,3 +108,14 @@ func _on_score_submitted(result: int, response_code: int, _headers: PackedString
 		return
 
 	%Response.text = server_message if server_message else "Score submitted!"
+
+func _on_country_changed(code:String) -> void:
+	country = code
+	%CountrySelector.hide()
+	_update_country()
+
+func _update_country() -> void:
+	%CountryButton.texture_normal = load("res://textures/flags/%s.png" % country)
+
+func _on_country_button_pressed() -> void:
+	%CountrySelector.show()
