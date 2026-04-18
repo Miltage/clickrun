@@ -1,8 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "WebFetch(domain:www.iban.com)",
-      "WebFetch(domain:en.wikipedia.org)"
-    ]
-  }
-}
