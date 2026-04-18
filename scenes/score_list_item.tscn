@@ -3,24 +3,32 @@
 [ext_resource type="Texture2D" uid="uid://ctt47aq2aomg7" path="res://textures/flags/GB.png" id="1_bbeqt"]
 [ext_resource type="Script" uid="uid://dv4vy64xv8734" path="res://scripts/ScoreListItem.gd" id="1_jfmca"]
 
-[node name="ScoreListItem" type="HBoxContainer" unique_id=570732428]
-theme_override_constants/separation = 10
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jfmca"]
+
+[node name="ScoreListItem" type="PanelContainer" unique_id=814417494]
+offset_right = 413.0
+offset_bottom = 23.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_jfmca")
 script = ExtResource("1_jfmca")
 
-[node name="Position" type="Label" parent="." unique_id=387180099]
+[node name="Container" type="HBoxContainer" parent="." unique_id=1244924848]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Rank" type="Label" parent="Container" unique_id=387180099]
 layout_mode = 2
 text = "0"
 
-[node name="Flag" type="TextureRect" parent="." unique_id=2079016966]
+[node name="Flag" type="TextureRect" parent="Container" unique_id=2079016966]
 layout_mode = 2
 texture = ExtResource("1_bbeqt")
 expand_mode = 3
 
-[node name="PlayerName" type="Label" parent="." unique_id=1789626051]
+[node name="PlayerName" type="Label" parent="Container" unique_id=1789626051]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Player Name"
 
-[node name="Time" type="Label" parent="." unique_id=255834959]
+[node name="Time" type="Label" parent="Container" unique_id=255834959]
 layout_mode = 2
 text = "000ms"

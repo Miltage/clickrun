@@ -1,5 +1,7 @@
 extends Node
 
+const API_BASE = "http://localhost:3000"
+
 var countryCodes:Dictionary = {
 	"AD": "Andorra",
 	"AE": "United Arab Emirates (the)",

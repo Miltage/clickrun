@@ -1,8 +1,6 @@
 class_name Main
 extends Control
 
-const API_URL = "http://localhost:3000/scores"
-
 static var country:String
 static var playerName:String
 static var playerTime:int
@@ -82,7 +80,7 @@ func submit_score() -> void:
 		"reaction_us": playerTime
 	})
 
-	var err := http.request(API_URL, ["Content-Type: application/json"], HTTPClient.METHOD_POST, body)
+	var err := http.request(Global.API_BASE + "/scores", ["Content-Type: application/json"], HTTPClient.METHOD_POST, body)
 	if (err != OK):
 		%Response.text = "Request error: %d" % err
 		%SubmitButton.disabled = false
@@ -119,3 +117,7 @@ func _update_country() -> void:
 
 func _on_country_button_pressed() -> void:
 	%CountrySelector.show()
+
+func _on_leaderboards_button_pressed() -> void:
+	%Leaderboard.show()
+	%Leaderboard.refresh()

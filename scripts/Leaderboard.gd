@@ -1,15 +1,14 @@
 extends Control
 
-const API_BASE = "http://localhost:3000"
 const SCORE_LIST_ITEM = preload("res://scenes/score_list_item.tscn")
 
-func _ready() -> void:
+func refresh() -> void:
 	for child in %Scores.get_children():
 		child.queue_free()
 	fetch_scores()
 
 func fetch_scores(country: String = "") -> void:
-	var url = API_BASE + "/scores/top?n=10"
+	var url = Global.API_BASE + "/scores/top?n=10"
 	if (country != ""):
 		url += "&country=" + country
 
@@ -36,8 +35,7 @@ func _on_scores_received(result: int, response_code: int, _headers: PackedString
 	for child in %Scores.get_children():
 		child.queue_free()
 
-	for i in scores.size():
-		var score:Dictionary = scores[i]
+	for score in scores:
 		var item = SCORE_LIST_ITEM.instantiate()
 		%Scores.add_child(item)
 
@@ -45,6 +43,6 @@ func _on_scores_received(result: int, response_code: int, _headers: PackedString
 		if (country_code != ""):
 			item.set_country(country_code)
 
-		item.set_pos(i + 1)
+		item.set_rank(score.get("rank", 0))
 		item.set_player_name(score.get("player_name", ""))
 		item.set_time_us(score.get("reaction_us", 0))
