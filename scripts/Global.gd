@@ -1,6 +1,6 @@
 extends Node
 
-const API_BASE = "http://localhost:3000"
+const API_BASE = "https://quickstart-backend-production.up.railway.app"
 
 var countryCodes:Dictionary = {
 	"AD": "Andorra",

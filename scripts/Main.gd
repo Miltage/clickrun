@@ -21,7 +21,7 @@ func _ready() -> void:
 	_load_progress()
 
 	if (bestTime < 1):
-		bestTime = 9223372036854775807
+		bestTime = 9223372036854775807 # max int
 
 	if (!country):
 		country = Global.pick_random_country()

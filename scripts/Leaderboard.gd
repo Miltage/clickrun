@@ -24,21 +24,30 @@ func fetch_scores(country: String = "") -> void:
 	add_child(http)
 	http.request_completed.connect(_on_scores_received.bind(http))
 
+	%Status.text = "Fetching scores..."
+	%Status.show()
+
 	var err := http.request(url)
 	if (err != OK):
+		print("http request error")
 		http.queue_free()
 
 func _on_scores_received(result: int, response_code: int, _headers: PackedStringArray, body: PackedByteArray, http: HTTPRequest) -> void:
 	http.queue_free()
 
 	if (result != HTTPRequest.RESULT_SUCCESS or response_code < 200 or response_code >= 300):
+		prints("error fetching scores:", response_code)
+		%Status.text = "Error occured"
 		return
 
 	var json := JSON.new()
 	if (json.parse(body.get_string_from_utf8()) != OK or not json.data is Dictionary):
+		print("error parsing JSON")
 		return
 
-	var scores: Array = json.data.get("scores", [])
+	%Status.hide()
+
+	var scores:Array = json.data.get("scores", [])
 
 	for child in %Scores.get_children():
 		child.queue_free()
@@ -55,6 +64,10 @@ func _on_scores_received(result: int, response_code: int, _headers: PackedString
 		item.set_rank(score.get("rank", 0))
 		item.set_player_name(score.get("player_name", ""))
 		item.set_time_us(score.get("reaction_us", 0))
+
+	if (scores.size() == 0):
+		%Status.text = "No scores yet."
+		%Status.show()
 
 	_scores_loaded = true
 	_update_player_row()

@@ -40,6 +40,13 @@ text = "Leaderboards"
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 
+[node name="Status" type="Label" parent="Container" unique_id=1132075491]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+text = "Status"
+horizontal_alignment = 1
+
 [node name="Scores" type="VBoxContainer" parent="Container" unique_id=426488923]
 unique_name_in_owner = true
 layout_mode = 2
