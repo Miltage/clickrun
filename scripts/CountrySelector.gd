@@ -4,7 +4,6 @@ extends Control
 
 signal country_selected(code:String)
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	for code in Global.countryCodes:
 		var flagButton:TextureButton = TextureButton.new()

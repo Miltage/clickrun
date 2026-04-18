@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://n1v4oebpb6dp"]
+
+[ext_resource type="Script" uid="uid://e1crg4ivnrfl" path="res://scripts/Leaderboard.gd" id="1_wgq7h"]
+[ext_resource type="PackedScene" uid="uid://bv0cd55fa00hb" path="res://scenes/score_list_item.tscn" id="2_8lgqg"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e4dr1"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+bg_color = Color(0, 0, 0, 0.78431374)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="Leaderboard" type="PanelContainer" unique_id=104452843]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e4dr1")
+script = ExtResource("1_wgq7h")
+
+[node name="Container" type="VBoxContainer" parent="." unique_id=1508101340]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Container" unique_id=1766932632]
+layout_mode = 2
+text = "Leaderboards"
+
+[node name="Spacer" type="Control" parent="Container" unique_id=1352534747]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="Scores" type="VBoxContainer" parent="Container" unique_id=426488923]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="ScoreListItem" parent="Container/Scores" unique_id=570732428 instance=ExtResource("2_8lgqg")]
+layout_mode = 2
+
+[node name="ScoreListItem2" parent="Container/Scores" unique_id=14667040 instance=ExtResource("2_8lgqg")]
+layout_mode = 2
+
+[node name="ScoreListItem3" parent="Container/Scores" unique_id=634921735 instance=ExtResource("2_8lgqg")]
+layout_mode = 2
+
+[node name="ScoreListItem4" parent="Container/Scores" unique_id=564884431 instance=ExtResource("2_8lgqg")]
+layout_mode = 2
