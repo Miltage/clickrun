@@ -71,23 +71,28 @@ func submit_score() -> void:
 	})
 
 	var err := http.request(API_URL, ["Content-Type: application/json"], HTTPClient.METHOD_POST, body)
-	if err != OK:
+	if (err != OK):
 		%Response.text = "Request error: %d" % err
 		%SubmitButton.disabled = false
 		%NameInput.editable = true
 		http.queue_free()
 
-func _on_score_submitted(result: int, response_code: int, _headers: PackedStringArray, _body: PackedByteArray, http: HTTPRequest) -> void:
+func _on_score_submitted(result: int, response_code: int, _headers: PackedStringArray, body: PackedByteArray, http: HTTPRequest) -> void:
 	http.queue_free()
 	%SubmitButton.disabled = false
 	%NameInput.editable = true
 
-	if result != HTTPRequest.RESULT_SUCCESS:
+	if (result != HTTPRequest.RESULT_SUCCESS):
 		%Response.text = "Network error. Please try again."
 		return
 
-	if response_code < 200 or response_code >= 300:
-		%Response.text = "Server error: %d" % response_code
+	var json := JSON.new()
+	var server_message: String
+	if (json.parse(body.get_string_from_utf8()) == OK and json.data is Dictionary):
+		server_message = json.data.get("error", "")
+
+	if (response_code < 200 or response_code >= 300):
+		%Response.text = server_message if server_message else "Server error: %d" % response_code
 		return
 
-	%Response.text = "Score submitted!"
+	%Response.text = server_message if server_message else "Score submitted!"
