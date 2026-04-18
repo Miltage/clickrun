@@ -1,19 +1,28 @@
 class_name Main
-extends Node2D
+extends Control
 
+const API_URL = "http://localhost:3000/scores"
+
+var country:String = "ZA"
+var playerName:String
 var fireTime:int = 0
 var pistolFired:bool = false
+var playerTime:int
 
 func _ready() -> void:
+	%ScoreSubmission.hide()
+	%Label.text = "Get ready..."
+	%Response.text = ""
+
 	# Start after a random delay to prevent anticipation
-	var delay = randf_range(1.0, 3.0)
+	var delay = randf_range(2.0, 8.0)
 	await get_tree().create_timer(delay).timeout
 	fire_pistol()
 
 func fire_pistol() -> void:
 	pistolFired = true
 	fireTime = Time.get_ticks_usec()
-	print("Event started! Click now.")
+	%Label.text = "BANG!"
 
 func _input(event: InputEvent) -> void:
 	if (pistolFired && event is InputEventMouseButton):
@@ -24,10 +33,61 @@ func _input(event: InputEvent) -> void:
 			_report_time(elapsed_usec)
 
 func _report_time(usec: int) -> void:
+	playerTime = usec
 	var ms: float = usec / 1000.0
 	var seconds: float = usec / 1_000_000.0
-	print("Reaction time:")
+	%Label.text = "%.3f milliseconds (ms)" % ms
 	print("  %d microseconds (µs)" % usec)
 	print("  %.3f milliseconds (ms)" % ms)
 	print("  %.6f seconds (s)" % seconds)
 
+	await get_tree().create_timer(1.0).timeout
+	%ScoreSubmission.show()
+	%SubmitButton.disabled = false
+	%NameInput.editable = true
+
+func submit_score() -> void:
+	%Response.text = ""
+
+	# validate name
+	if (%NameInput.text.length() < 3):
+		%Response.text = "Name needs to be at least 3 characters in length."
+		return
+
+	playerName = %NameInput.text
+
+	%SubmitButton.disabled = true
+	%NameInput.editable = false
+
+	var http := HTTPRequest.new()
+	add_child(http)
+	http.request_completed.connect(_on_score_submitted.bind(http))
+
+	var body := JSON.stringify({
+		"player_name": playerName,
+		"device_id": OS.get_unique_id(),
+		"country": country,
+		"reaction_us": playerTime
+	})
+
+	var err := http.request(API_URL, ["Content-Type: application/json"], HTTPClient.METHOD_POST, body)
+	if err != OK:
+		%Response.text = "Request error: %d" % err
+		%SubmitButton.disabled = false
+		%NameInput.editable = true
+		http.queue_free()
+
+func _on_score_submitted(result: int, response_code: int, _headers: PackedStringArray, _body: PackedByteArray, http: HTTPRequest) -> void:
+	http.queue_free()
+	%SubmitButton.disabled = false
+	%NameInput.editable = true
+
+	if result != HTTPRequest.RESULT_SUCCESS:
+		%Response.text = "Network error. Please try again."
+		return
+
+	if response_code < 200 or response_code >= 300:
+		%Response.text = "Server error: %d" % response_code
+		return
+
+	%Response.text = "Score submitted!"
