@@ -1,30 +1,60 @@
 class_name Main
 extends Control
 
+const SAVE_PATH = "user://save.cfg"
+
 static var country:String
 static var playerName:String
 static var playerTime:int
+static var bestTime:int
 
 var fireTime:int = 0
 var pistolFired:bool = false
 
 func _ready() -> void:
 	%ScoreSubmission.hide()
+	%RetryButton.hide()
 	%Label.text = ""
 	%Response.text = ""
+	%PlayerName.text = ""
+
+	_load_progress()
+
+	if (bestTime < 1):
+		bestTime = 9223372036854775807
 
 	if (!country):
 		country = Global.pick_random_country()
 		%CountrySelector.show()
 
+	if (playerName):
+		%NameInput.text = playerName
+		%PlayerName.text = playerName
+
 	_update_country()
+
+func _load_progress() -> void:
+	var cfg := ConfigFile.new()
+	if (cfg.load(SAVE_PATH) != OK):
+		return
+	country = cfg.get_value("player", "country", "")
+	playerName = cfg.get_value("player", "name", "")
+	playerTime = cfg.get_value("player", "time", 0)
+	bestTime = cfg.get_value("player", "bestTime", 0)
+
+func _save_progress() -> void:
+	var cfg := ConfigFile.new()
+	cfg.set_value("player", "country", country)
+	cfg.set_value("player", "name", playerName)
+	cfg.set_value("player", "time", playerTime)
+	cfg.set_value("player", "bestTime", bestTime)
+	cfg.save(SAVE_PATH)
 
 func start() -> void:
 	%StartButton.hide()
-	
+
 	%Label.text = "Get ready..."
 
-	# Start after a random delay to prevent anticipation
 	var delay = randf_range(2.0, 8.0)
 	await get_tree().create_timer(delay).timeout
 	fire_pistol()
@@ -44,6 +74,12 @@ func _input(event: InputEvent) -> void:
 
 func _report_time(usec: int) -> void:
 	playerTime = usec
+
+	var newPB:bool = false
+	if (playerTime < bestTime):
+		newPB = true
+		bestTime = playerTime
+
 	var ms: float = usec / 1000.0
 	var seconds: float = usec / 1_000_000.0
 	%Label.text = "%.3f milliseconds (ms)" % ms
@@ -52,19 +88,23 @@ func _report_time(usec: int) -> void:
 	print("  %.6f seconds (s)" % seconds)
 
 	await get_tree().create_timer(1.0).timeout
-	%ScoreSubmission.show()
-	%SubmitButton.disabled = false
-	%NameInput.editable = true
+	if (newPB):
+		_save_progress()
+		%ScoreSubmission.show()
+		%SubmitButton.disabled = false
+		%NameInput.editable = true
+	else:
+		%RetryButton.show()
 
 func submit_score() -> void:
 	%Response.text = ""
 
-	# validate name
 	if (%NameInput.text.length() < 3):
 		%Response.text = "Name needs to be at least 3 characters in length."
 		return
 
 	playerName = %NameInput.text
+	_save_progress()
 
 	%SubmitButton.disabled = true
 	%NameInput.editable = false
@@ -91,6 +131,8 @@ func _on_score_submitted(result: int, response_code: int, _headers: PackedString
 	http.queue_free()
 	%SubmitButton.disabled = false
 	%NameInput.editable = true
+	%ScoreSubmission.hide()
+	%RetryButton.show()
 
 	if (result != HTTPRequest.RESULT_SUCCESS):
 		%Response.text = "Network error. Please try again."
@@ -107,8 +149,9 @@ func _on_score_submitted(result: int, response_code: int, _headers: PackedString
 
 	%Response.text = server_message if server_message else "Score submitted!"
 
-func _on_country_changed(code:String) -> void:
+func _on_country_changed(code: String) -> void:
 	country = code
+	_save_progress()
 	%CountrySelector.hide()
 	_update_country()
 
@@ -121,3 +164,7 @@ func _on_country_button_pressed() -> void:
 func _on_leaderboards_button_pressed() -> void:
 	%Leaderboard.show()
 	%Leaderboard.refresh()
+
+func retry() -> void:
+	%RetryButton.hide()
+	%StartButton.show()

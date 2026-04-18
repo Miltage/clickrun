@@ -53,15 +53,12 @@ layout_mode = 2
 text = "Response text"
 horizontal_alignment = 1
 
-[node name="CountryButton" type="TextureButton" parent="." unique_id=536183813]
+[node name="RetryButton" type="Button" parent="VBoxContainer" unique_id=1415452255]
 unique_name_in_owner = true
-layout_mode = 1
-offset_left = 8.0
-offset_top = 8.0
-offset_right = 32.0
-offset_bottom = 24.0
-mouse_default_cursor_shape = 2
-texture_normal = ExtResource("2_sugp2")
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Try again"
 
 [node name="StartButton" type="Button" parent="." unique_id=917168349]
 unique_name_in_owner = true
@@ -114,8 +111,30 @@ unique_name_in_owner = true
 visible = false
 layout_mode = 1
 
+[node name="PlayerInfo" type="HBoxContainer" parent="." unique_id=1751589071]
+layout_mode = 1
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 108.0
+offset_bottom = 31.0
+theme_override_constants/separation = 10
+
+[node name="CountryButton" type="TextureButton" parent="PlayerInfo" unique_id=536183813]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("2_sugp2")
+stretch_mode = 3
+
+[node name="PlayerName" type="Label" parent="PlayerInfo" unique_id=278604743]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Player Name"
+vertical_alignment = 1
+
 [connection signal="pressed" from="VBoxContainer/ScoreSubmission/SubmitButton" to="." method="submit_score"]
-[connection signal="pressed" from="CountryButton" to="." method="_on_country_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/RetryButton" to="." method="retry"]
 [connection signal="pressed" from="StartButton" to="." method="start"]
 [connection signal="country_selected" from="CountrySelector" to="." method="_on_country_changed"]
 [connection signal="pressed" from="LeaderboardsButton" to="." method="_on_leaderboards_button_pressed"]
+[connection signal="pressed" from="PlayerInfo/CountryButton" to="." method="_on_country_button_pressed"]

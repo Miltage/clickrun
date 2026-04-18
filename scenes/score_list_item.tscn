@@ -16,8 +16,10 @@ layout_mode = 2
 theme_override_constants/separation = 10
 
 [node name="Rank" type="Label" parent="Container" unique_id=387180099]
+custom_minimum_size = Vector2(20, 0)
 layout_mode = 2
 text = "0"
+horizontal_alignment = 2
 
 [node name="Flag" type="TextureRect" parent="Container" unique_id=2079016966]
 layout_mode = 2
