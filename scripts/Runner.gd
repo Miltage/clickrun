@@ -17,6 +17,11 @@ func _ready() -> void:
 	enter_pose_1()
 	_speed = START_SPEED
 
+	var type:int = randi_range(1, 3)
+	$Sprite.visible = type == 1
+	$Sprite2.visible = type == 2
+	$Sprite3.visible = type == 3
+
 func _process(delta: float) -> void:
 	if (_running):
 		position.x += delta * _speed
@@ -28,10 +33,14 @@ func _process(delta: float) -> void:
 
 func enter_pose_1() -> void:
 	$Sprite.play("startpose1")
+	$Sprite2.play("startpose1")
+	$Sprite3.play("startpose1")
 
 func enter_pose_2() -> void:
 	await get_tree().create_timer(randf_range(0.2, 0.6)).timeout
 	$Sprite.play("startpose2")
+	$Sprite2.play("startpose2")
+	$Sprite3.play("startpose2")
 
 func auto_run() -> void:
 	if (reactionTime == 0): return
@@ -40,8 +49,12 @@ func auto_run() -> void:
 
 func start_running() -> void:	
 	$Sprite.play("run")
+	$Sprite2.play("run")
+	$Sprite3.play("run")
 	_running = true
 	start.emit()
 
 func set_color(color:Color) -> void:
 	$Sprite.material.set_shader_parameter("target_color", color)
+	$Sprite2.material.set_shader_parameter("target_color", color)
+	$Sprite3.material.set_shader_parameter("target_color", color)

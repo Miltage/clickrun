@@ -31,9 +31,11 @@ func _update_ui() -> void:
 	if (!playerCountry):
 		playerCountry = Global.pick_random_country()
 		%CountrySelector.show()
+		$GameButtons.hide()
 	else:
 		_update_country()
 		%PlayerInfo.show()
+		$GameButtons.show()
 		%LeaderboardsButton.show()
 		setup_race()
 
