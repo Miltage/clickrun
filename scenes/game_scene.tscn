@@ -44,11 +44,8 @@ layout_mode = 2
 [node name="PlayerInfo5" parent="RunnerInfo" unique_id=689347442 instance=ExtResource("4_bw6k5")]
 layout_mode = 2
 
-[node name="Runner5" parent="." unique_id=185410110 instance=ExtResource("1_w5aja")]
-position = Vector2(-94, 62)
-
-[node name="Runner4" parent="." unique_id=855239997 instance=ExtResource("1_w5aja")]
-position = Vector2(-94, 42)
+[node name="Runner1" parent="." unique_id=1369069862 instance=ExtResource("1_w5aja")]
+position = Vector2(-94, -18)
 
 [node name="Runner2" parent="." unique_id=1495424051 instance=ExtResource("1_w5aja")]
 position = Vector2(-94, 2)
@@ -56,8 +53,11 @@ position = Vector2(-94, 2)
 [node name="Runner3" parent="." unique_id=1923896879 instance=ExtResource("1_w5aja")]
 position = Vector2(-94, 22)
 
-[node name="Runner1" parent="." unique_id=1369069862 instance=ExtResource("1_w5aja")]
-position = Vector2(-94, -18)
+[node name="Runner4" parent="." unique_id=855239997 instance=ExtResource("1_w5aja")]
+position = Vector2(-94, 42)
+
+[node name="Runner5" parent="." unique_id=185410110 instance=ExtResource("1_w5aja")]
+position = Vector2(-94, 62)
 
 [node name="OnYourMarks" type="AudioStreamPlayer2D" parent="." unique_id=308973222]
 stream = ExtResource("6_mw25s")

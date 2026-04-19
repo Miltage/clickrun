@@ -42,3 +42,6 @@ func start_running() -> void:
 	$Sprite.play("run")
 	_running = true
 	start.emit()
+
+func set_color(color:Color) -> void:
+	$Sprite.material.set_shader_parameter("target_color", color)
