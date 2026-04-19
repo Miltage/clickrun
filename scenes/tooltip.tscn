@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://b7ujcehrypkqj"]
+
+[ext_resource type="Theme" uid="uid://dqarsaynk7swx" path="res://theme.tres" id="1_nptpy"]
+[ext_resource type="Script" uid="uid://s3k2ltstfjen" path="res://scripts/Tooltip.gd" id="2_75wrl"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nptpy"]
+content_margin_left = 10.0
+content_margin_top = 5.0
+content_margin_right = 10.0
+content_margin_bottom = 5.0
+bg_color = Color(0, 0, 0, 0.9019608)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="Tooltip" type="PanelContainer" unique_id=821854158]
+z_index = 500
+offset_right = 60.0
+offset_bottom = 28.0
+theme = ExtResource("1_nptpy")
+theme_override_styles/panel = SubResource("StyleBoxFlat_nptpy")
+script = ExtResource("2_75wrl")
+
+[node name="Label" type="Label" parent="." unique_id=769431882]
+layout_mode = 2
+text = "Tooltip"
+horizontal_alignment = 1

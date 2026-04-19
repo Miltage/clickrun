@@ -2,6 +2,7 @@ class_name PlayerInfo
 extends HBoxContainer
 
 var _highlighted:bool
+var _countryCode:String
 
 func _ready() -> void:
 	%PlayerName.text = ""
@@ -11,7 +12,8 @@ func set_player_name(playerName:String) -> void:
 	%PlayerName.text = playerName
 
 func set_country(code:String) -> void:
-	%CountryButton.texture = load("res://textures/flags/%s.png" % code)
+	_countryCode = code
+	%Country.texture = load("res://textures/flags/%s.png" % code)
 
 func set_time(usec:int) -> void:
 	var ms: float = usec / 1000.0
@@ -37,3 +39,10 @@ func make_visible() -> void:
 
 func make_hidden() -> void:
 	modulate = Color.TRANSPARENT
+
+func _on_country_mouse_entered() -> void:
+	if (!Global.countryCodes.has(_countryCode)): return
+	Tooltip.show_tip(Global.countryCodes[_countryCode])
+
+func _on_country_mouse_exited() -> void:
+	Tooltip.clear()

@@ -13,7 +13,7 @@ theme = ExtResource("1_qu03o")
 theme_override_constants/separation = 10
 script = ExtResource("1_yl0j5")
 
-[node name="CountryButton" type="TextureRect" parent="." unique_id=1519420969]
+[node name="Country" type="TextureRect" parent="." unique_id=1519420969]
 unique_name_in_owner = true
 layout_mode = 2
 texture = ExtResource("1_oojiu")
@@ -30,3 +30,6 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "[000.000ms]"
 vertical_alignment = 1
+
+[connection signal="mouse_entered" from="Country" to="." method="_on_country_mouse_entered"]
+[connection signal="mouse_exited" from="Country" to="." method="_on_country_mouse_exited"]

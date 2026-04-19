@@ -6,6 +6,8 @@ extends Control
 @onready var time: Label = $Container/Time
 @onready var rank: Label = $Container/Rank
 
+var _countryCode:String
+
 func set_player_name(new_name: String) -> void:
 	player_name.text = new_name
 
@@ -13,6 +15,7 @@ func set_time_us(reaction_us: int) -> void:
 	time.text = "%.3f ms" % (reaction_us / 1000.0)
 
 func set_country(country_code: String) -> void:
+	_countryCode = country_code
 	var flag_path = "res://textures/flags/%s.png" % country_code
 	if (ResourceLoader.exists(flag_path)):
 		flag.texture = load(flag_path)
@@ -28,3 +31,10 @@ func set_as_ellipsis() -> void:
 	rank.text = ""
 	player_name.text = "..."
 	time.hide()
+
+func _on_flag_mouse_entered() -> void:
+	if (!Global.countryCodes.has(_countryCode)): return
+	Tooltip.show_tip(Global.countryCodes[_countryCode])
+
+func _on_flag_mouse_exited() -> void:
+	Tooltip.clear()

@@ -36,3 +36,6 @@ text = "Player Name"
 [node name="Time" type="Label" parent="Container" unique_id=255834959]
 layout_mode = 2
 text = "000ms"
+
+[connection signal="mouse_entered" from="Container/Flag" to="." method="_on_flag_mouse_entered"]
+[connection signal="mouse_exited" from="Container/Flag" to="." method="_on_flag_mouse_exited"]
