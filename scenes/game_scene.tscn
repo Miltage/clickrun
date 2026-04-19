@@ -9,6 +9,8 @@
 [ext_resource type="AudioStream" uid="uid://bkkbqjclsx5hn" path="res://audio/pistol_shot.ogg" id="6_kk2rg"]
 [ext_resource type="AudioStream" uid="uid://e63o8ytloax2" path="res://audio/on_your_marks.ogg" id="6_mw25s"]
 [ext_resource type="PackedScene" uid="uid://beyk36bm77s23" path="res://scenes/pistolguy.tscn" id="7_kk2rg"]
+[ext_resource type="AudioStream" uid="uid://cxusx7e0gasyp" path="res://audio/ambience.ogg" id="10_mw25s"]
+[ext_resource type="AudioStream" uid="uid://dljwiqdhgp3n2" path="res://audio/false_start.wav" id="10_tcjrq"]
 
 [node name="GameScene" type="Node2D" unique_id=83491003]
 script = ExtResource("1_ycayy")
@@ -67,3 +69,10 @@ stream = ExtResource("5_rurhu")
 
 [node name="PistolShot" type="AudioStreamPlayer2D" parent="." unique_id=376769334]
 stream = ExtResource("6_kk2rg")
+
+[node name="FalseStart" type="AudioStreamPlayer2D" parent="." unique_id=962598799]
+stream = ExtResource("10_tcjrq")
+
+[node name="Ambience" type="AudioStreamPlayer2D" parent="." unique_id=2007577730]
+stream = ExtResource("10_mw25s")
+autoplay = true

@@ -89,3 +89,4 @@ func set_player_info(raceData:Array) -> void:
 func false_start(playerPos:int) -> void:
 	playerRunner.start_running()
 	%RunnerInfo.get_child(playerPos).modulate = Color.TRANSPARENT
+	$FalseStart.play()
