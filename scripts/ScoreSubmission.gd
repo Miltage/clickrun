@@ -76,6 +76,7 @@ func _on_score_submitted(result: int, response_code: int, _headers: PackedString
 
 	if (response_code < 200 or response_code >= 300):
 		%Response.text = server_message if server_message else "Server error: %d" % response_code
+		%NameInput.editable = Main.playerID < 1
 		return
 
 	%Response.text = server_message if server_message else "Score submitted!"

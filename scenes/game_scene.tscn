@@ -19,7 +19,7 @@ script = ExtResource("1_ycayy")
 texture = ExtResource("1_onqr8")
 
 [node name="PistolGuy" parent="." unique_id=752843616 instance=ExtResource("7_kk2rg")]
-position = Vector2(-68, -36)
+position = Vector2(-9, -36)
 
 [node name="RunnerInfo" type="VBoxContainer" parent="." unique_id=491730798]
 unique_name_in_owner = true
