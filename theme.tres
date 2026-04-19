@@ -1,0 +1,6 @@
+[gd_resource type="Theme" format=3 uid="uid://dqarsaynk7swx"]
+
+[ext_resource type="FontFile" uid="uid://7c7u0t2154ml" path="res://fonts/Born2bSportyFS.otf" id="1_e1x85"]
+
+[resource]
+default_font = ExtResource("1_e1x85")

@@ -16,7 +16,6 @@ func _ready() -> void:
 	%RetryButton.hide()
 	%Label.text = ""
 	%Response.text = ""
-	%PlayerName.text = ""
 
 	_load_progress()
 
@@ -29,7 +28,7 @@ func _ready() -> void:
 
 	if (playerName):
 		%NameInput.text = playerName
-		%PlayerName.text = playerName
+		%PlayerInfo.set_player_name(playerName)
 
 	_update_country()
 
@@ -157,7 +156,7 @@ func _on_country_changed(code: String) -> void:
 	_update_country()
 
 func _update_country() -> void:
-	%CountryButton.texture_normal = load("res://textures/flags/%s.png" % country)
+	%PlayerInfo.set_country(country)
 
 func _on_country_button_pressed() -> void:
 	%CountrySelector.show()

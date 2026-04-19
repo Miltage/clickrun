@@ -11,13 +11,16 @@ script = ExtResource("1_ycayy")
 texture = ExtResource("1_onqr8")
 
 [node name="Runner" parent="." unique_id=185410110 instance=ExtResource("1_w5aja")]
-position = Vector2(-95, 61)
+position = Vector2(-95, 62)
 
 [node name="Runner2" parent="." unique_id=855239997 instance=ExtResource("1_w5aja")]
-position = Vector2(-95, 41)
+position = Vector2(-95, 42)
 
 [node name="Runner4" parent="." unique_id=1495424051 instance=ExtResource("1_w5aja")]
-position = Vector2(-95, 1)
+position = Vector2(-95, 2)
 
 [node name="Runner3" parent="." unique_id=1923896879 instance=ExtResource("1_w5aja")]
-position = Vector2(-95, 21)
+position = Vector2(-95, 22)
+
+[node name="Runner5" parent="." unique_id=1369069862 instance=ExtResource("1_w5aja")]
+position = Vector2(-95, -18)
