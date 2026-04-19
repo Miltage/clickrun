@@ -3,5 +3,8 @@
 /android/
 export/
 
+# Secrets
+secrets.cfg
+
 # Claude
 .claude/

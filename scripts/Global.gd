@@ -1,9 +1,16 @@
 @tool
 extends Node
 
-const API_BASE = "https://quickstart-backend-production.up.railway.app"
-#const API_BASE = "http://localhost:3000"
-const SCORE_SECRET = "L81sZNuqzmA9a39e"
+#const API_BASE = "https://quickstart-backend-production.up.railway.app"
+const API_BASE = "http://localhost:3000"
+var SCORE_SECRET: String = ""
+
+func _ready() -> void:
+	var cfg = ConfigFile.new()
+	if cfg.load("res://secrets.cfg") == OK:
+		SCORE_SECRET = cfg.get_value("secrets", "score_secret", "")
+	else:
+		push_error("secrets.cfg not found — score hashing disabled")
 
 var countryCodes:Dictionary = {
 	"AD": "Andorra",
