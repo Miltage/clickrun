@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bv0cd55fa00hb"]
 
 [ext_resource type="Texture2D" uid="uid://ctt47aq2aomg7" path="res://textures/flags/GB.png" id="1_bbeqt"]
+[ext_resource type="Theme" uid="uid://dqarsaynk7swx" path="res://theme.tres" id="1_exfw6"]
 [ext_resource type="Script" uid="uid://dv4vy64xv8734" path="res://scripts/ScoreListItem.gd" id="1_jfmca"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jfmca"]
@@ -8,6 +9,7 @@
 [node name="ScoreListItem" type="PanelContainer" unique_id=814417494]
 offset_right = 413.0
 offset_bottom = 23.0
+theme = ExtResource("1_exfw6")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_jfmca")
 script = ExtResource("1_jfmca")
 

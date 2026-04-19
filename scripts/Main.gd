@@ -120,6 +120,7 @@ func _input(event: InputEvent) -> void:
 				$GameScene.false_start(playerPos)
 				$PistolTimer.stop()
 				%Label.text = "False start!"
+				$InfoLabel.text = "Wait for the pistol"
 				%RetryButton.show()
 
 func _report_time(usec: int) -> void:
@@ -189,6 +190,7 @@ func _on_pistol_timer_timeout() -> void:
 
 func _on_submit_score_button_pressed() -> void:
 	$InfoLabel.text = ""
+	$ScoreSubmission.set_time(playerTime)
 	$ScoreSubmission.open()
 	%SubmitScoreButton.hide()
 	%LeaderboardsButton.hide()

@@ -10,6 +10,15 @@ func open() -> void:
 	update_country()
 	show()
 
+func set_time(usec:int) -> void:
+	var ms: float = usec / 1000.0
+	if (ms > 1000):
+		%Time.text = "[Disqualified]"
+	elif (usec > 0):
+		%Time.text = "[%.3fms]" % ms
+	else:
+		%Time.text = ""
+
 func submit_score() -> void:
 	%Response.text = ""
 
