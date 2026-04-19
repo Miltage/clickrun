@@ -3,6 +3,7 @@ extends Node
 
 #const API_BASE = "https://quickstart-backend-production.up.railway.app"
 const API_BASE = "http://localhost:3000"
+const SCORE_SECRET = "L81sZNuqzmA9a39e"
 
 var countryCodes:Dictionary = {
 	"AD": "Andorra",

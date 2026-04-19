@@ -8,7 +8,6 @@ func open() -> void:
 	%Response.text = ""
 	%NameInput.text = Main.playerName
 	%NameInput.editable = Main.playerID < 1
-	print(Main.playerID)
 	update_country()
 	show()
 
@@ -40,11 +39,15 @@ func submit_score() -> void:
 	add_child(http)
 	http.request_completed.connect(_on_score_submitted.bind(http))
 
+	var raw = Main.playerName + str(Main.playerTime) + Global.SCORE_SECRET
+	var secretHash = raw.sha256_text()
+
 	var body := JSON.stringify({
 		"playerId": Main.playerID,
 		"player_name": Main.playerName,
 		"country": Main.playerCountry,
-		"reaction_us": Main.playerTime
+		"reaction_us": Main.playerTime,
+		"hash": secretHash
 	})
 
 	var err := http.request(Global.API_BASE + "/scores", ["Content-Type: application/json"], HTTPClient.METHOD_POST, body)
