@@ -8,6 +8,7 @@ static var playerName:String
 static var playerTime:int
 static var bestTime:int
 
+var raceData:Array = []
 var fireTime:int = 0
 var pistolFired:bool = false
 
@@ -35,6 +36,7 @@ func _update_ui() -> void:
 		_update_country()
 		%PlayerInfo.show()
 		%LeaderboardsButton.show()
+		setup_race()
 
 	if (playerName):
 		%NameInput.text = playerName
@@ -57,6 +59,23 @@ func _save_progress() -> void:
 	cfg.set_value("player", "bestTime", bestTime)
 	cfg.save(SAVE_PATH)
 
+func setup_race() -> void:
+	var http := HTTPRequest.new()
+	add_child(http)
+	http.request_completed.connect(_on_opponents_loaded.bind(http))
+	var device_id := OS.get_unique_id()
+	http.request(Global.API_BASE + "/scores/random?device_id=" + device_id)
+
+func _on_opponents_loaded(_result: int, _response_code: int, _headers: PackedStringArray, body: PackedByteArray, http: HTTPRequest) -> void:
+	http.queue_free()
+	var json := JSON.new()
+	if (json.parse(body.get_string_from_utf8()) == OK and json.data is Dictionary):
+		raceData = json.data.get("scores", [])
+		print(raceData)
+		var playerPos:int = randi_range(0, raceData.size())
+		raceData.insert(playerPos, {"player_name": ("%s (You)" % playerName) if playerName else "You", "country": country})
+		$GameScene.setup_race(raceData, playerPos)
+
 func start() -> void:
 	%StartButton.hide()
 
@@ -65,7 +84,7 @@ func start() -> void:
 
 	await get_tree().create_timer(2.0).timeout
 	%Label.text = "Set..."
-	$GameScene.set_race()
+	$GameScene.prepare_runners()
 
 	var delay = randf_range(2.0, 5.0)
 	await get_tree().create_timer(delay).timeout

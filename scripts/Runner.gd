@@ -1,6 +1,10 @@
 class_name Runner
 extends Node2D
 
+signal start
+
+var reactionTime:int
+
 var _running:bool
 
 # Called when the node enters the scene tree for the first time.
@@ -20,6 +24,12 @@ func enter_pose_2() -> void:
 	await get_tree().create_timer(randf_range(0.2, 0.6)).timeout
 	$Sprite.play("startpose2")
 
-func start_running() -> void:
+func auto_run() -> void:
+	if (reactionTime == 0): return
+	await get_tree().create_timer(reactionTime / 1_000_000.0).timeout
+	start_running()
+
+func start_running() -> void:	
 	$Sprite.play("run")
 	_running = true
+	start.emit()
