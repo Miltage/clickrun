@@ -84,6 +84,7 @@ func _on_opponents_loaded(_result: int, _response_code: int, _headers: PackedStr
 
 func start() -> void:
 	%StartButton.hide()
+	%LeaderboardsButton.hide()
 
 	%Label.text = "On your marks..."
 	$GameScene.on_your_marks()
@@ -137,6 +138,8 @@ func _report_time(usec: int) -> void:
 	else:
 		%RetryButton.show()
 
+	%LeaderboardsButton.show()
+
 func _on_country_changed(code: String) -> void:
 	playerCountry = code
 	_save_progress()
@@ -154,11 +157,13 @@ func open_leaderboard() -> void:
 	%Leaderboard.show()
 	%Leaderboard.refresh()
 	$ScoreSubmission.hide()
+	$GameButtons.hide()
 	%LeaderboardsButton.hide()
 
 func close_leaderboard() -> void:
 	%Leaderboard.hide()
 	%LeaderboardsButton.show()
+	$GameButtons.show()
 
 func retry() -> void:
 	get_tree().reload_current_scene()

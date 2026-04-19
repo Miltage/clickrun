@@ -26,7 +26,12 @@ one_shot = true
 position = Vector2(400, 201)
 scale = Vector2(2, 2)
 
-[node name="StartButton" type="Button" parent="." unique_id=917168349]
+[node name="GameButtons" type="Control" parent="." unique_id=1806551228]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="StartButton" type="Button" parent="GameButtons" unique_id=917168349]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
@@ -35,16 +40,16 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -46.0
-offset_top = -45.0
-offset_right = 46.0
-offset_bottom = -14.0
+offset_left = 334.0
+offset_top = 315.0
+offset_right = 426.0
+offset_bottom = 346.0
 grow_horizontal = 2
 grow_vertical = 0
 mouse_default_cursor_shape = 2
 text = "START"
 
-[node name="SubmitScoreButton" type="Button" parent="." unique_id=2083985969]
+[node name="SubmitScoreButton" type="Button" parent="GameButtons" unique_id=2083985969]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(120, 0)
 layout_mode = 0
@@ -55,7 +60,7 @@ offset_bottom = 386.0
 mouse_default_cursor_shape = 2
 text = "Submit Score"
 
-[node name="RetryButton" type="Button" parent="." unique_id=1415452255]
+[node name="RetryButton" type="Button" parent="GameButtons" unique_id=1415452255]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
@@ -64,10 +69,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -46.0
-offset_top = -42.0
-offset_right = 46.0
-offset_bottom = -14.0
+offset_left = 334.0
+offset_top = 318.0
+offset_right = 426.0
+offset_bottom = 346.0
 grow_horizontal = 2
 grow_vertical = 0
 size_flags_horizontal = 4
@@ -145,9 +150,9 @@ offset_left = -154.0
 offset_right = 154.0
 
 [connection signal="timeout" from="PistolTimer" to="." method="_on_pistol_timer_timeout"]
-[connection signal="pressed" from="StartButton" to="." method="start"]
-[connection signal="pressed" from="SubmitScoreButton" to="." method="_on_submit_score_button_pressed"]
-[connection signal="pressed" from="RetryButton" to="." method="retry"]
+[connection signal="pressed" from="GameButtons/StartButton" to="." method="start"]
+[connection signal="pressed" from="GameButtons/SubmitScoreButton" to="." method="_on_submit_score_button_pressed"]
+[connection signal="pressed" from="GameButtons/RetryButton" to="." method="retry"]
 [connection signal="pressed" from="LeaderboardsButton" to="." method="open_leaderboard"]
 [connection signal="pressed" from="DeleteDataButton" to="." method="_on_delete_data_button_pressed"]
 [connection signal="close" from="Leaderboard" to="." method="close_leaderboard"]
