@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://n1v4oebpb6dp"]
 
+[ext_resource type="Theme" uid="uid://dqarsaynk7swx" path="res://theme.tres" id="1_8lgqg"]
 [ext_resource type="Script" uid="uid://e1crg4ivnrfl" path="res://scripts/Leaderboard.gd" id="1_wgq7h"]
 [ext_resource type="PackedScene" uid="uid://bv0cd55fa00hb" path="res://scenes/score_list_item.tscn" id="2_8lgqg"]
 
@@ -9,6 +10,17 @@ content_margin_top = 10.0
 content_margin_right = 16.0
 content_margin_bottom = 10.0
 bg_color = Color(0, 0, 0, 0.8627451)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8lgqg"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0, 0, 0, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
@@ -26,15 +38,28 @@ offset_right = 176.0
 offset_bottom = 93.5
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_8lgqg")
 theme_override_styles/panel = SubResource("StyleBoxFlat_e4dr1")
 script = ExtResource("1_wgq7h")
 
 [node name="Container" type="VBoxContainer" parent="." unique_id=1508101340]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Container" unique_id=1766932632]
+[node name="HBoxContainer" type="HBoxContainer" parent="Container" unique_id=1517143557]
 layout_mode = 2
+
+[node name="Label" type="Label" parent="Container/HBoxContainer" unique_id=1766932632]
+layout_mode = 2
+size_flags_horizontal = 3
 text = "Leaderboards"
+
+[node name="CloseButton" type="Button" parent="Container/HBoxContainer" unique_id=377912230]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_8lgqg")
+text = "Close"
 
 [node name="Spacer" type="Control" parent="Container" unique_id=1352534747]
 custom_minimum_size = Vector2(0, 20)
@@ -63,3 +88,5 @@ layout_mode = 2
 
 [node name="ScoreListItem4" parent="Container/Scores" unique_id=564884431 instance=ExtResource("2_8lgqg")]
 layout_mode = 2
+
+[connection signal="pressed" from="Container/HBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]

@@ -85,5 +85,6 @@ func set_player_info(raceData:Array) -> void:
 			playerInfo.set_time(raceData[i].reaction_us if (raceData[i].has('reaction_us')) else 0)
 			playerInfo.hide_time()
 
-func false_start() -> void:
+func false_start(playerPos:int) -> void:
 	playerRunner.start_running()
+	%RunnerInfo.get_child(playerPos).modulate = Color.TRANSPARENT

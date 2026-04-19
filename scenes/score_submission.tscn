@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://bkorvvpp5waym"]
+
+[ext_resource type="Script" uid="uid://54lfccr6fb5e" path="res://scripts/ScoreSubmission.gd" id="1_r1bva"]
+[ext_resource type="Texture2D" uid="uid://ctt47aq2aomg7" path="res://textures/flags/GB.png" id="2_gvu1f"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e4dr1"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+bg_color = Color(0, 0, 0, 0.8627451)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="ScoreSubmission" type="PanelContainer" unique_id=104452843]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -176.0
+offset_top = -56.5
+offset_right = 176.0
+offset_bottom = 56.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_e4dr1")
+script = ExtResource("1_r1bva")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=35933005]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=679084690]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="CountryButton" type="TextureButton" parent="VBoxContainer/HBoxContainer" unique_id=1382847631]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("2_gvu1f")
+stretch_mode = 5
+
+[node name="NameInput" type="LineEdit" parent="VBoxContainer/HBoxContainer" unique_id=268600395]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 1
+placeholder_text = "Name"
+
+[node name="Response" type="Label" parent="VBoxContainer" unique_id=284534593]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Response text"
+horizontal_alignment = 1
+
+[node name="SubmitButton" type="Button" parent="VBoxContainer" unique_id=513602361]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+text = "Submit Score"
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/CountryButton" to="." method="_on_country_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/SubmitButton" to="." method="submit_score"]

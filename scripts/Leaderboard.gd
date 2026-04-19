@@ -1,5 +1,7 @@
 extends Control
 
+signal close
+
 const SCORE_LIST_ITEM = preload("res://scenes/score_list_item.tscn")
 
 var _scores_loaded: bool = false
@@ -121,3 +123,6 @@ func _update_player_row() -> void:
 	if (country_code != ""):
 		item.set_country(country_code)
 	item.set_highlighted(true)
+
+func _on_close_button_pressed() -> void:
+	close.emit()
