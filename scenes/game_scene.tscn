@@ -16,6 +16,9 @@ script = ExtResource("1_ycayy")
 [node name="Background" type="Sprite2D" parent="." unique_id=1636237802]
 texture = ExtResource("1_onqr8")
 
+[node name="PistolGuy" parent="." unique_id=752843616 instance=ExtResource("7_kk2rg")]
+position = Vector2(-68, -36)
+
 [node name="RunnerInfo" type="VBoxContainer" parent="." unique_id=491730798]
 unique_name_in_owner = true
 offset_left = -74.0
@@ -64,6 +67,3 @@ stream = ExtResource("5_rurhu")
 
 [node name="PistolShot" type="AudioStreamPlayer2D" parent="." unique_id=376769334]
 stream = ExtResource("6_kk2rg")
-
-[node name="PistolGuy" parent="." unique_id=752843616 instance=ExtResource("7_kk2rg")]
-position = Vector2(-68, -36)

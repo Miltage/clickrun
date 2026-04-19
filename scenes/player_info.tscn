@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://i5oclopsik4n"]
 
 [ext_resource type="Texture2D" uid="uid://ctt47aq2aomg7" path="res://textures/flags/GB.png" id="1_oojiu"]
+[ext_resource type="Theme" uid="uid://dqarsaynk7swx" path="res://theme.tres" id="1_qu03o"]
 [ext_resource type="Script" uid="uid://dmxb4vhe4t332" path="res://scripts/PlayerInfo.gd" id="1_yl0j5"]
 
 [node name="PlayerInfo" type="HBoxContainer" unique_id=895905425]
@@ -8,6 +9,7 @@ offset_left = 8.0
 offset_top = 8.0
 offset_right = 108.0
 offset_bottom = 31.0
+theme = ExtResource("1_qu03o")
 theme_override_constants/separation = 10
 script = ExtResource("1_yl0j5")
 
@@ -21,4 +23,10 @@ stretch_mode = 3
 unique_name_in_owner = true
 layout_mode = 2
 text = "Player Name"
+vertical_alignment = 1
+
+[node name="Time" type="Label" parent="." unique_id=1061305599]
+unique_name_in_owner = true
+layout_mode = 2
+text = "[000.000ms]"
 vertical_alignment = 1

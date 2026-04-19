@@ -10,6 +10,7 @@ static var bestTime:int
 
 var raceData:Array = []
 var fireTime:int = 0
+var playerPos:int
 var pistolFired:bool = false
 var raceSet:bool = false
 
@@ -73,7 +74,7 @@ func _on_opponents_loaded(_result: int, _response_code: int, _headers: PackedStr
 	if (json.parse(body.get_string_from_utf8()) == OK and json.data is Dictionary):
 		raceData = json.data.get("scores", [])
 		print(raceData)
-		var playerPos:int = randi_range(0, raceData.size())
+		playerPos = randi_range(0, raceData.size())
 		raceData.insert(playerPos, {"player_name": ("%s (You)" % playerName) if playerName else "You", "country": country})
 		$GameScene.setup_race(raceData, playerPos)
 
@@ -125,6 +126,8 @@ func _report_time(usec: int) -> void:
 	print("%d microseconds (µs)" % usec)
 	print("%.3f milliseconds (ms)" % ms)
 	print("%.6f seconds (s)" % seconds)
+
+	$GameScene.update_player_time(playerPos, usec)
 
 	await get_tree().create_timer(1.0).timeout
 	if (newPB):

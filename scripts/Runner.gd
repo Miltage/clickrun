@@ -1,21 +1,30 @@
 class_name Runner
 extends Node2D
 
+const START_SPEED:float = 20
+const MAX_SPEED:float = 100
+
 signal start
+signal run_complete
 
 var reactionTime:int
 
 var _running:bool
+var _speed:float
+var _complete:bool
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	enter_pose_1()
+	_speed = START_SPEED
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if (_running):
-		position.x += delta * 80
+		position.x += delta * _speed
+		_speed = lerp(_speed, MAX_SPEED, 0.1)
+
+		if (position.x > 20 && !_complete):
+			run_complete.emit()
+			_complete = true
 
 func enter_pose_1() -> void:
 	$Sprite.play("startpose1")

@@ -19,6 +19,12 @@ func _ready() -> void:
 	$Runner4.start.connect(_on_runner_start.bind(3))
 	$Runner5.start.connect(_on_runner_start.bind(4))
 
+	$Runner1.run_complete.connect(_on_runner_run_complete.bind(0))
+	$Runner2.run_complete.connect(_on_runner_run_complete.bind(1))
+	$Runner3.run_complete.connect(_on_runner_run_complete.bind(2))
+	$Runner4.run_complete.connect(_on_runner_run_complete.bind(3))
+	$Runner5.run_complete.connect(_on_runner_run_complete.bind(4))
+
 func start_running() -> void:
 	playerRunner.start_running()
 
@@ -34,6 +40,9 @@ func prepare_runners() -> void:
 func pistol_fire() -> void:
 	$PistolShot.play()
 	$PistolGuy.fire()
+
+	for child in %RunnerInfo.get_children():
+		child.modulate = Color.TRANSPARENT
 
 	for runner in runners:
 		runner.auto_run()
@@ -53,8 +62,18 @@ func setup_race(raceData:Array, playerPos:int) -> void:
 
 	set_player_info(raceData)
 
-func _on_runner_start(pos: int) -> void:
-	%RunnerInfo.get_child(pos).modulate = Color.TRANSPARENT
+func update_player_time(playerPos:int, usec:int) -> void:
+	var playerInfo:PlayerInfo = %RunnerInfo.get_child(playerPos)
+	playerInfo.set_time(usec)
+	playerInfo.show_time()
+
+func _on_runner_start(_pos: int) -> void:
+	return
+
+func _on_runner_run_complete(pos: int) -> void:
+	var playerInfo:PlayerInfo = %RunnerInfo.get_child(pos)
+	playerInfo.modulate = Color.WHITE
+	playerInfo.show_time()
 
 func set_player_info(raceData:Array) -> void:
 	for i in %RunnerInfo.get_child_count():
@@ -63,6 +82,8 @@ func set_player_info(raceData:Array) -> void:
 		if (i < raceData.size()):
 			playerInfo.set_country(raceData[i].country)
 			playerInfo.set_player_name(raceData[i].player_name)
+			playerInfo.set_time(raceData[i].reaction_us if (raceData[i].has('reaction_us')) else 0)
+			playerInfo.hide_time()
 
 func false_start() -> void:
 	playerRunner.start_running()
