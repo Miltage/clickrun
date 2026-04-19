@@ -1,3 +1,4 @@
+@tool
 extends Node
 
 const API_BASE = "https://quickstart-backend-production.up.railway.app"

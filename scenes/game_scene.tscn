@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://chk0spve210np"]
+
+[ext_resource type="Texture2D" uid="uid://c6s0kh78tt1lk" path="res://textures/background.png" id="1_onqr8"]
+[ext_resource type="PackedScene" uid="uid://dkisfe502xv7f" path="res://scenes/runner.tscn" id="1_w5aja"]
+[ext_resource type="Script" uid="uid://blpy03ml7virp" path="res://scripts/GameScene.gd" id="1_ycayy"]
+
+[node name="GameScene" type="Node2D" unique_id=83491003]
+script = ExtResource("1_ycayy")
+
+[node name="Background" type="Sprite2D" parent="." unique_id=1636237802]
+texture = ExtResource("1_onqr8")
+
+[node name="Runner" parent="." unique_id=185410110 instance=ExtResource("1_w5aja")]
+position = Vector2(-95, 61)
+
+[node name="Runner2" parent="." unique_id=855239997 instance=ExtResource("1_w5aja")]
+position = Vector2(-95, 41)
+
+[node name="Runner4" parent="." unique_id=1495424051 instance=ExtResource("1_w5aja")]
+position = Vector2(-95, 1)
+
+[node name="Runner3" parent="." unique_id=1923896879 instance=ExtResource("1_w5aja")]
+position = Vector2(-95, 21)

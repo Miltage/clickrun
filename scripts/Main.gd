@@ -71,6 +71,7 @@ func _input(event: InputEvent) -> void:
 			var elapsed_usec: int = click_usec - fireTime
 			pistolFired = false
 			_report_time(elapsed_usec)
+			$GameScene.start_running()
 
 func _report_time(usec: int) -> void:
 	playerTime = usec

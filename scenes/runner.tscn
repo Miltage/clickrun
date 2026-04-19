@@ -1,0 +1,87 @@
+[gd_scene format=3 uid="uid://dkisfe502xv7f"]
+
+[ext_resource type="Script" uid="uid://bi3irnjehp1kc" path="res://scripts/Runner.gd" id="1_0q11q"]
+[ext_resource type="Texture2D" uid="uid://do5y6v55c8y61" path="res://textures/runner-spritesheet.png" id="1_52agx"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0q11q"]
+atlas = ExtResource("1_52agx")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y21ji"]
+atlas = ExtResource("1_52agx")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5qbmg"]
+atlas = ExtResource("1_52agx")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a6sfn"]
+atlas = ExtResource("1_52agx")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ouwii"]
+atlas = ExtResource("1_52agx")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1ty2h"]
+atlas = ExtResource("1_52agx")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_psb0v"]
+atlas = ExtResource("1_52agx")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fleup"]
+atlas = ExtResource("1_52agx")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_psb0v"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0q11q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y21ji")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5qbmg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a6sfn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ouwii")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1ty2h")
+}],
+"loop": true,
+"name": &"run",
+"speed": 14.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_psb0v")
+}],
+"loop": true,
+"name": &"startpose1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fleup")
+}],
+"loop": true,
+"name": &"startpose2",
+"speed": 5.0
+}]
+
+[node name="Runner" type="Node2D" unique_id=185410110]
+script = ExtResource("1_0q11q")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=1475220988]
+position = Vector2(0, -12)
+sprite_frames = SubResource("SpriteFrames_psb0v")
+animation = &"startpose1"
+frame_progress = 0.16270295
