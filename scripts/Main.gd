@@ -11,6 +11,7 @@ static var bestTime:int
 var raceData:Array = []
 var fireTime:int = 0
 var pistolFired:bool = false
+var raceSet:bool = false
 
 func _ready() -> void:
 	%ScoreSubmission.hide()
@@ -85,11 +86,10 @@ func start() -> void:
 	await get_tree().create_timer(2.0).timeout
 	%Label.text = "Set..."
 	$GameScene.prepare_runners()
+	raceSet = true
 
 	var delay = randf_range(2.0, 5.0)
-	await get_tree().create_timer(delay).timeout
-	fire_pistol()
-	$GameScene.pistol_fire()
+	$PistolTimer.start(delay)
 
 func fire_pistol() -> void:
 	pistolFired = true
@@ -97,13 +97,19 @@ func fire_pistol() -> void:
 	%Label.text = "BANG!"
 
 func _input(event: InputEvent) -> void:
-	if (pistolFired && event is InputEventMouseButton):
+	if (event is InputEventMouseButton):
 		if (event.button_index == MOUSE_BUTTON_LEFT && event.pressed):
-			var click_usec: int = Time.get_ticks_usec()
-			var elapsed_usec: int = click_usec - fireTime
-			pistolFired = false
-			_report_time(elapsed_usec)
-			$GameScene.start_running()
+			if (pistolFired):
+				var click_usec: int = Time.get_ticks_usec()
+				var elapsed_usec: int = click_usec - fireTime
+				pistolFired = false
+				_report_time(elapsed_usec)
+				$GameScene.start_running()
+			elif (raceSet):
+				$GameScene.false_start()
+				$PistolTimer.stop()
+				%Label.text = "False start!"
+				%RetryButton.show()
 
 func _report_time(usec: int) -> void:
 	playerTime = usec
@@ -116,9 +122,9 @@ func _report_time(usec: int) -> void:
 	var ms: float = usec / 1000.0
 	var seconds: float = usec / 1_000_000.0
 	%Label.text = "%.3f milliseconds (ms)" % ms
-	print("  %d microseconds (µs)" % usec)
-	print("  %.3f milliseconds (ms)" % ms)
-	print("  %.6f seconds (s)" % seconds)
+	print("%d microseconds (µs)" % usec)
+	print("%.3f milliseconds (ms)" % ms)
+	print("%.6f seconds (s)" % seconds)
 
 	await get_tree().create_timer(1.0).timeout
 	if (newPB):
@@ -199,8 +205,7 @@ func _on_leaderboards_button_pressed() -> void:
 	%Leaderboard.refresh()
 
 func retry() -> void:
-	%RetryButton.hide()
-	%StartButton.show()
+	get_tree().reload_current_scene()
 
 func _on_delete_data_button_pressed() -> void:
 	DirAccess.remove_absolute(ProjectSettings.globalize_path(SAVE_PATH))
@@ -209,3 +214,7 @@ func _on_delete_data_button_pressed() -> void:
 	playerTime = 0
 	bestTime = 0
 	get_tree().reload_current_scene()
+
+func _on_pistol_timer_timeout() -> void:
+	fire_pistol()
+	$GameScene.pistol_fire()

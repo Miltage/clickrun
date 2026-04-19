@@ -63,3 +63,6 @@ func set_player_info(raceData:Array) -> void:
 		if (i < raceData.size()):
 			playerInfo.set_country(raceData[i].country)
 			playerInfo.set_player_name(raceData[i].player_name)
+
+func false_start() -> void:
+	playerRunner.start_running()

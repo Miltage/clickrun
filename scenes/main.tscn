@@ -150,9 +150,13 @@ layout_mode = 1
 offset_top = -133.0
 offset_bottom = 133.0
 
+[node name="PistolTimer" type="Timer" parent="." unique_id=1336613692]
+one_shot = true
+
 [connection signal="pressed" from="VBoxContainer/ScoreSubmission/SubmitButton" to="." method="submit_score"]
 [connection signal="pressed" from="VBoxContainer/RetryButton" to="." method="retry"]
 [connection signal="pressed" from="StartButton" to="." method="start"]
 [connection signal="pressed" from="LeaderboardsButton" to="." method="_on_leaderboards_button_pressed"]
 [connection signal="pressed" from="DeleteDataButton" to="." method="_on_delete_data_button_pressed"]
 [connection signal="country_selected" from="CountrySelector" to="." method="_on_country_changed"]
+[connection signal="timeout" from="PistolTimer" to="." method="_on_pistol_timer_timeout"]
