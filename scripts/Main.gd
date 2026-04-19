@@ -20,9 +20,9 @@ func _ready() -> void:
 	%PlayerInfo.hide()
 	%LeaderboardsButton.hide()
 	%SubmitScoreButton.hide()
-	%StartButton.show()
+	%StartButton.hide()
 	%Label.text = ""
-	$InfoLabel.text = ""
+	$InfoLabel.text = "Loading runner data..."
 	%DeleteDataButton.visible = OS.has_feature("editor")
 
 	_load_progress()
@@ -83,6 +83,8 @@ func _on_opponents_loaded(_result: int, _response_code: int, _headers: PackedStr
 		playerPos = randi_range(0, raceData.size())
 		raceData.insert(playerPos, {"player_name": ("%s (You)" % playerName) if playerName else "You", "country": playerCountry})
 		$GameScene.setup_race(raceData, playerPos)
+		$InfoLabel.text = ""
+		%StartButton.show()
 
 func start() -> void:
 	%StartButton.hide()

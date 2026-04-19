@@ -1,8 +1,8 @@
 @tool
 extends Node
 
-#const API_BASE = "https://quickstart-backend-production.up.railway.app"
-const API_BASE = "http://localhost:3000"
+const API_BASE = "https://quickstart-backend-production.up.railway.app"
+#const API_BASE = "http://localhost:3000"
 var SCORE_SECRET: String = ""
 
 func _ready() -> void:
