@@ -100,13 +100,6 @@ grow_vertical = 2
 text = "Sample Text"
 horizontal_alignment = 1
 
-[node name="CountrySelector" parent="." unique_id=918931947 instance=ExtResource("2_0wfyh")]
-unique_name_in_owner = true
-visible = false
-layout_mode = 1
-offset_left = -154.0
-offset_right = 154.0
-
 [node name="LeaderboardsButton" type="Button" parent="." unique_id=745415280]
 layout_mode = 1
 anchors_preset = 1
@@ -119,11 +112,6 @@ offset_bottom = 47.0
 grow_horizontal = 0
 mouse_default_cursor_shape = 2
 text = "Leaderboards"
-
-[node name="Leaderboard" parent="." unique_id=104452843 instance=ExtResource("4_jyhfs")]
-unique_name_in_owner = true
-visible = false
-layout_mode = 1
 
 [node name="PlayerInfo" parent="." unique_id=895905425 instance=ExtResource("6_tefeu")]
 unique_name_in_owner = true
@@ -154,8 +142,22 @@ layout_mode = 2
 [node name="PlayerInfo5" parent="RunnerInfo" unique_id=2006129670 instance=ExtResource("6_tefeu")]
 layout_mode = 2
 
+[node name="CountrySelector" parent="." unique_id=918931947 instance=ExtResource("2_0wfyh")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+offset_left = -154.0
+offset_right = 154.0
+
+[node name="Leaderboard" parent="." unique_id=104452843 instance=ExtResource("4_jyhfs")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+offset_top = -133.0
+offset_bottom = 133.0
+
 [connection signal="pressed" from="VBoxContainer/ScoreSubmission/SubmitButton" to="." method="submit_score"]
 [connection signal="pressed" from="VBoxContainer/RetryButton" to="." method="retry"]
 [connection signal="pressed" from="StartButton" to="." method="start"]
-[connection signal="country_selected" from="CountrySelector" to="." method="_on_country_changed"]
 [connection signal="pressed" from="LeaderboardsButton" to="." method="_on_leaderboards_button_pressed"]
+[connection signal="country_selected" from="CountrySelector" to="." method="_on_country_changed"]

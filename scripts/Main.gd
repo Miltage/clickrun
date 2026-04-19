@@ -52,11 +52,17 @@ func _save_progress() -> void:
 func start() -> void:
 	%StartButton.hide()
 
-	%Label.text = "Get ready..."
+	%Label.text = "On your marks..."
+	$GameScene.on_your_marks()
 
-	var delay = randf_range(2.0, 8.0)
+	await get_tree().create_timer(2.0).timeout
+	%Label.text = "Set..."
+	$GameScene.set_race()
+
+	var delay = randf_range(2.0, 5.0)
 	await get_tree().create_timer(delay).timeout
 	fire_pistol()
+	$GameScene.pistol_fire()
 
 func fire_pistol() -> void:
 	pistolFired = true

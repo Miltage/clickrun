@@ -58,7 +58,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"run",
-"speed": 14.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -84,4 +84,4 @@ script = ExtResource("1_0q11q")
 position = Vector2(0, -12)
 sprite_frames = SubResource("SpriteFrames_psb0v")
 animation = &"startpose1"
-frame_progress = 0.16270295
+frame_progress = 0.9277689

@@ -3,6 +3,10 @@
 [ext_resource type="Texture2D" uid="uid://c6s0kh78tt1lk" path="res://textures/background.png" id="1_onqr8"]
 [ext_resource type="PackedScene" uid="uid://dkisfe502xv7f" path="res://scenes/runner.tscn" id="1_w5aja"]
 [ext_resource type="Script" uid="uid://blpy03ml7virp" path="res://scripts/GameScene.gd" id="1_ycayy"]
+[ext_resource type="AudioStream" uid="uid://e63o8ytloax2" path="res://audio/on_your_marks.ogg" id="4_bw6k5"]
+[ext_resource type="AudioStream" uid="uid://bbgx51rjjsrmo" path="res://audio/set.ogg" id="5_rurhu"]
+[ext_resource type="AudioStream" uid="uid://bkkbqjclsx5hn" path="res://audio/pistol_shot.ogg" id="6_kk2rg"]
+[ext_resource type="PackedScene" uid="uid://beyk36bm77s23" path="res://scenes/pistolguy.tscn" id="7_kk2rg"]
 
 [node name="GameScene" type="Node2D" unique_id=83491003]
 script = ExtResource("1_ycayy")
@@ -11,16 +15,28 @@ script = ExtResource("1_ycayy")
 texture = ExtResource("1_onqr8")
 
 [node name="Runner" parent="." unique_id=185410110 instance=ExtResource("1_w5aja")]
-position = Vector2(-95, 62)
+position = Vector2(-95, 60)
 
 [node name="Runner2" parent="." unique_id=855239997 instance=ExtResource("1_w5aja")]
-position = Vector2(-95, 42)
+position = Vector2(-95, 40)
 
 [node name="Runner4" parent="." unique_id=1495424051 instance=ExtResource("1_w5aja")]
-position = Vector2(-95, 2)
+position = Vector2(-95, 0)
 
 [node name="Runner3" parent="." unique_id=1923896879 instance=ExtResource("1_w5aja")]
-position = Vector2(-95, 22)
+position = Vector2(-95, 20)
 
 [node name="Runner5" parent="." unique_id=1369069862 instance=ExtResource("1_w5aja")]
-position = Vector2(-95, -18)
+position = Vector2(-95, -20)
+
+[node name="OnYourMarks" type="AudioStreamPlayer2D" parent="." unique_id=308973222]
+stream = ExtResource("4_bw6k5")
+
+[node name="Set" type="AudioStreamPlayer2D" parent="." unique_id=1166582704]
+stream = ExtResource("5_rurhu")
+
+[node name="PistolShot" type="AudioStreamPlayer2D" parent="." unique_id=376769334]
+stream = ExtResource("6_kk2rg")
+
+[node name="PistolGuy" parent="." unique_id=752843616 instance=ExtResource("7_kk2rg")]
+position = Vector2(-68, -36)

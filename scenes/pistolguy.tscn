@@ -1,0 +1,93 @@
+[gd_scene format=3 uid="uid://beyk36bm77s23"]
+
+[ext_resource type="Texture2D" uid="uid://bksjqnpyj8cuv" path="res://textures/pistolguy-spritesheet.png" id="1_iaxv3"]
+[ext_resource type="Script" uid="uid://dbjyefv0rdmye" path="res://scripts/PistolGuy.gd" id="1_ivoh8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ivoh8"]
+atlas = ExtResource("1_iaxv3")
+region = Rect2(96, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pfx28"]
+atlas = ExtResource("1_iaxv3")
+region = Rect2(128, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6hu26"]
+atlas = ExtResource("1_iaxv3")
+region = Rect2(160, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hhvsa"]
+atlas = ExtResource("1_iaxv3")
+region = Rect2(192, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s3cph"]
+atlas = ExtResource("1_iaxv3")
+region = Rect2(224, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rex7j"]
+atlas = ExtResource("1_iaxv3")
+region = Rect2(0, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4pg26"]
+atlas = ExtResource("1_iaxv3")
+region = Rect2(0, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eifk4"]
+atlas = ExtResource("1_iaxv3")
+region = Rect2(32, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_45j13"]
+atlas = ExtResource("1_iaxv3")
+region = Rect2(64, 0, 32, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ylcxv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ivoh8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pfx28")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6hu26")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hhvsa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s3cph")
+}],
+"loop": false,
+"name": &"fire",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rex7j")
+}],
+"loop": false,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4pg26")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eifk4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_45j13")
+}],
+"loop": false,
+"name": &"prepare",
+"speed": 5.0
+}]
+
+[node name="PistolGuy" type="Node2D" unique_id=185410110]
+script = ExtResource("1_ivoh8")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=1475220988]
+position = Vector2(-8, -23)
+sprite_frames = SubResource("SpriteFrames_ylcxv")
+animation = &"fire"
