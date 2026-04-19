@@ -54,7 +54,9 @@ func start_running() -> void:
 	_running = true
 	start.emit()
 
-func set_color(color:Color) -> void:
+func set_color_from_country(country:String) -> void:
+	var tex:Texture2D = load("res://textures/flags/%s.png" % country)
+	var color:Color = Global.get_most_prominent_color(tex)
 	$Sprite.material.set_shader_parameter("target_color", color)
 	$Sprite2.material.set_shader_parameter("target_color", color)
 	$Sprite3.material.set_shader_parameter("target_color", color)

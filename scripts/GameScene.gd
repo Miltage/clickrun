@@ -1,13 +1,10 @@
 class_name GameScene
 extends Node2D
 
-var colors:Array = [Color("c42c36"), Color("13b2f2"), Color("dbe0e7"), Color("7f3b86"), Color("2e6a42"), Color("7bcf5c"), Color("b45eb3"), Color("f7ac37")]
-
 var runners:Array
 var playerRunner:Runner
 
 func _ready() -> void:
-	colors.shuffle()
 	runners = [$Runner1, $Runner2, $Runner3, $Runner4, $Runner5]
 
 	for runner in runners:
@@ -27,12 +24,6 @@ func _ready() -> void:
 	$Runner3.run_complete.connect(_on_runner_run_complete.bind(2))
 	$Runner4.run_complete.connect(_on_runner_run_complete.bind(3))
 	$Runner5.run_complete.connect(_on_runner_run_complete.bind(4))
-
-	$Runner1.set_color(colors[0])
-	$Runner2.set_color(colors[1])
-	$Runner3.set_color(colors[2])
-	$Runner4.set_color(colors[3])
-	$Runner5.set_color(colors[4])
 
 func start_running() -> void:
 	playerRunner.start_running()
@@ -62,6 +53,7 @@ func pistol_fire() -> void:
 func setup_race(raceData:Array, playerPos:int) -> void:
 	for i in runners.size():
 		runners[i].visible = i < raceData.size()
+		runners[i].set_color_from_country(raceData[i].country)
 		if (i < raceData.size()):
 			if (raceData[i].has('reaction_us')): 
 				runners[i].reactionTime = raceData[i].reaction_us

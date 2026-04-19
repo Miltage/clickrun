@@ -249,3 +249,32 @@ var countryCodes:Dictionary = {
 
 func pick_random_country() -> String:
 	return Global.countryCodes.keys().pick_random()
+
+func get_most_prominent_color(texture: Texture2D) -> Color:
+	var image := texture.get_image()
+	var counts := {}
+	var width := image.get_width()
+	var height := image.get_height()
+
+	for y in height:
+		for x in width:
+			var c := image.get_pixel(x, y)
+			if c.a < 0.01:
+				continue  # skip transparent pixels
+			# Use a string key so identical colors collide
+			var key := "%d,%d,%d" % [int(c.r * 255), int(c.g * 255), int(c.b * 255)]
+			counts[key] = counts.get(key, 0) + 1
+
+	var best_key := ""
+	var best_count := 0
+	for key in counts:
+		if counts[key] > best_count:
+			best_count = counts[key]
+			best_key = key
+
+	var parts := best_key.split(",")
+	return Color(
+		parts[0].to_int() / 255.0,
+		parts[1].to_int() / 255.0,
+		parts[2].to_int() / 255.0
+	)
