@@ -21,6 +21,7 @@ func _ready() -> void:
 	%SubmitScoreButton.hide()
 	%StartButton.show()
 	%Label.text = ""
+	$InfoLabel.text = ""
 	%DeleteDataButton.visible = OS.has_feature("editor")
 
 	_load_progress()
@@ -136,9 +137,13 @@ func _report_time(usec: int) -> void:
 	var newPB:bool = playerTime < bestTime && ms < 1000
 	if (newPB):
 		_save_progress()
+		$InfoLabel.text = "New personal best!"
 		%SubmitScoreButton.show()
 	else:
 		%RetryButton.show()
+
+	if (ms > 1000):
+		$InfoLabel.text = "Time needs to be < 1000ms"
 
 	%LeaderboardsButton.show()
 
@@ -183,12 +188,15 @@ func _on_pistol_timer_timeout() -> void:
 	$GameScene.pistol_fire()
 
 func _on_submit_score_button_pressed() -> void:
+	$InfoLabel.text = ""
 	$ScoreSubmission.open()
 	%SubmitScoreButton.hide()
 	%LeaderboardsButton.hide()
 
 func _on_score_submission_score_submitted() -> void:
 	bestTime = playerTime
+	%PlayerInfo.set_time(bestTime)
+	%PlayerInfo.show_time()
 	_save_progress()
 	open_leaderboard()
 	%SubmitScoreButton.hide()

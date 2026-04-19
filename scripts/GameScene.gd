@@ -42,7 +42,7 @@ func pistol_fire() -> void:
 	$PistolGuy.fire()
 
 	for child in %RunnerInfo.get_children():
-		child.modulate = Color.TRANSPARENT
+		child.make_hidden()
 
 	for runner in runners:
 		runner.auto_run()
@@ -73,7 +73,7 @@ func _on_runner_start(_pos: int) -> void:
 
 func _on_runner_run_complete(pos: int) -> void:
 	var playerInfo:PlayerInfo = %RunnerInfo.get_child(pos)
-	playerInfo.modulate = Color.WHITE
+	playerInfo.make_visible()
 	playerInfo.show_time()
 
 func set_player_info(raceData:Array) -> void:
@@ -85,8 +85,9 @@ func set_player_info(raceData:Array) -> void:
 			playerInfo.set_player_name(raceData[i].player_name)
 			playerInfo.set_time(raceData[i].reaction_us if (raceData[i].has('reaction_us')) else 0)
 			playerInfo.hide_time()
+			playerInfo.set_highlighted(i == Main.playerPos)
 
 func false_start(playerPos:int) -> void:
 	playerRunner.start_running()
-	%RunnerInfo.get_child(playerPos).modulate = Color.TRANSPARENT
+	%RunnerInfo.get_child(playerPos).make_hidden()
 	$FalseStart.play()

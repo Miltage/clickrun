@@ -95,6 +95,23 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Sample Text"
 
+[node name="InfoLabel" type="Label" parent="." unique_id=1738595753]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -339.0
+offset_top = 160.0
+offset_right = -84.0
+offset_bottom = 183.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Info"
+horizontal_alignment = 2
+
 [node name="LeaderboardsButton" type="Button" parent="." unique_id=745415280]
 unique_name_in_owner = true
 layout_mode = 1
