@@ -197,6 +197,7 @@ func _on_submit_score_button_pressed() -> void:
 
 func _on_score_submission_score_submitted() -> void:
 	bestTime = playerTime
+	%PlayerInfo.set_player_name(playerName)
 	%PlayerInfo.set_time(bestTime)
 	%PlayerInfo.show_time()
 	_save_progress()

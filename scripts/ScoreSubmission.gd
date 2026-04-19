@@ -73,6 +73,8 @@ func _on_score_submitted(result: int, response_code: int, _headers: PackedString
 		var score_data: Dictionary = json.data.get("score", {})
 		if (score_data.has("id")):
 			Main.playerID = score_data["id"]
+		if (score_data.has("player_name")):
+			Main.playerName = score_data["player_name"]
 
 	if (response_code < 200 or response_code >= 300):
 		%Response.text = server_message if server_message else "Server error: %d" % response_code
