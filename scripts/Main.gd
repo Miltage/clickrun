@@ -14,23 +14,31 @@ var pistolFired:bool = false
 func _ready() -> void:
 	%ScoreSubmission.hide()
 	%RetryButton.hide()
+	%PlayerInfo.hide()
+	%LeaderboardsButton.hide()
 	%Label.text = ""
 	%Response.text = ""
+	%DeleteDataButton.visible = OS.has_feature("editor")
 
 	_load_progress()
 
 	if (bestTime < 1):
 		bestTime = 9223372036854775807 # max int
 
+	_update_ui()
+
+func _update_ui() -> void:
 	if (!country):
 		country = Global.pick_random_country()
 		%CountrySelector.show()
+	else:
+		_update_country()
+		%PlayerInfo.show()
+		%LeaderboardsButton.show()
 
 	if (playerName):
 		%NameInput.text = playerName
 		%PlayerInfo.set_player_name(playerName)
-
-	_update_country()
 
 func _load_progress() -> void:
 	var cfg := ConfigFile.new()
@@ -159,7 +167,7 @@ func _on_country_changed(code: String) -> void:
 	country = code
 	_save_progress()
 	%CountrySelector.hide()
-	_update_country()
+	_update_ui()
 
 func _update_country() -> void:
 	%PlayerInfo.set_country(country)
@@ -174,3 +182,11 @@ func _on_leaderboards_button_pressed() -> void:
 func retry() -> void:
 	%RetryButton.hide()
 	%StartButton.show()
+
+func _on_delete_data_button_pressed() -> void:
+	DirAccess.remove_absolute(ProjectSettings.globalize_path(SAVE_PATH))
+	country = ""
+	playerName = ""
+	playerTime = 0
+	bestTime = 0
+	get_tree().reload_current_scene()
