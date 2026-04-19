@@ -75,12 +75,13 @@ func _on_scores_received(result: int, response_code: int, _headers: PackedString
 	_update_player_row()
 
 func _fetch_player_score() -> void:
-	var device_id := OS.get_unique_id()
+	if (Main.playerID <= 0):
+		return
 	var http := HTTPRequest.new()
 	add_child(http)
 	http.request_completed.connect(_on_player_score_received.bind(http))
 
-	var err := http.request(Global.API_BASE + "/scores/device/" + device_id)
+	var err := http.request(Global.API_BASE + "/scores/player/%d" % Main.playerID)
 	if (err != OK):
 		http.queue_free()
 

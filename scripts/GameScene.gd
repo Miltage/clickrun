@@ -53,8 +53,8 @@ func pistol_fire() -> void:
 func setup_race(raceData:Array, playerPos:int) -> void:
 	for i in runners.size():
 		runners[i].visible = i < raceData.size()
-		runners[i].set_color_from_country(raceData[i].country)
 		if (i < raceData.size()):
+			runners[i].set_color_from_country(raceData[i].country)
 			if (raceData[i].has('reaction_us')): 
 				runners[i].reactionTime = raceData[i].reaction_us
 	

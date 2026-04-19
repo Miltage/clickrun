@@ -6,6 +6,7 @@ const SAVE_PATH = "user://save.cfg"
 static var playerCountry:String
 static var playerName:String
 static var playerTime:int
+static var playerID:int
 static var playerPos:int
 static var bestTime:int
 
@@ -42,8 +43,6 @@ func _update_ui() -> void:
 
 	if (playerName):
 		%PlayerInfo.set_player_name(playerName)
-
-	print(bestTime)
 	
 	if (bestTime > 0 && bestTime < 1000000):
 		%PlayerInfo.set_time(bestTime)
@@ -59,6 +58,7 @@ func _load_progress() -> void:
 	playerName = cfg.get_value("player", "name", "")
 	playerTime = cfg.get_value("player", "time", 0)
 	bestTime = cfg.get_value("player", "bestTime", 0)
+	playerID = cfg.get_value("player", "playerID", 0)
 
 func _save_progress() -> void:
 	var cfg := ConfigFile.new()
@@ -66,21 +66,20 @@ func _save_progress() -> void:
 	cfg.set_value("player", "name", playerName)
 	cfg.set_value("player", "time", playerTime)
 	cfg.set_value("player", "bestTime", bestTime)
+	cfg.set_value("player", "playerID", playerID)
 	cfg.save(SAVE_PATH)
 
 func setup_race() -> void:
 	var http := HTTPRequest.new()
 	add_child(http)
 	http.request_completed.connect(_on_opponents_loaded.bind(http))
-	var device_id := OS.get_unique_id()
-	http.request(Global.API_BASE + "/scores/random?device_id=" + device_id)
+	http.request(Global.API_BASE + "/scores/random?playerId=%d" % playerID)
 
 func _on_opponents_loaded(_result: int, _response_code: int, _headers: PackedStringArray, body: PackedByteArray, http: HTTPRequest) -> void:
 	http.queue_free()
 	var json := JSON.new()
 	if (json.parse(body.get_string_from_utf8()) == OK and json.data is Dictionary):
 		raceData = json.data.get("scores", [])
-		print(raceData)
 		playerPos = randi_range(0, raceData.size())
 		raceData.insert(playerPos, {"player_name": ("%s (You)" % playerName) if playerName else "You", "country": playerCountry})
 		$GameScene.setup_race(raceData, playerPos)
@@ -182,6 +181,7 @@ func _on_delete_data_button_pressed() -> void:
 	playerName = ""
 	playerTime = 0
 	bestTime = 0
+	playerID = 0
 	get_tree().reload_current_scene()
 
 func _on_pistol_timer_timeout() -> void:
