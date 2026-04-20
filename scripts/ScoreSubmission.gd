@@ -90,3 +90,12 @@ func _on_country_button_pressed() -> void:
 
 func update_country() -> void:
 	%CountryButton.texture_normal = load("res://textures/flags/%s.png" % Main.playerCountry)
+
+func _on_name_input_text_changed(new_text: String) -> void:
+	var filtered := ""
+	for c in new_text:
+		if (c.unicode_at(0) > 32 and not c in "^&*<>|\\\"'`~{}[]();#%!@+=-"):
+			filtered += c
+	if (filtered != new_text):
+		%NameInput.text = filtered
+		%NameInput.caret_column = filtered.length()

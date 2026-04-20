@@ -22,7 +22,7 @@ func _ready() -> void:
 	%SubmitScoreButton.hide()
 	%StartButton.hide()
 	%Label.text = ""
-	$InfoLabel.text = "Loading runner data..."
+	$InfoLabel.text = ""
 	%DeleteDataButton.visible = OS.has_feature("editor")
 
 	_load_progress()
@@ -74,6 +74,7 @@ func setup_race() -> void:
 	add_child(http)
 	http.request_completed.connect(_on_opponents_loaded.bind(http))
 	http.request(Global.API_BASE + "/scores/random?playerId=%d" % playerID)
+	$InfoLabel.text = "Loading runner data..."
 
 func _on_opponents_loaded(_result: int, _response_code: int, _headers: PackedStringArray, body: PackedByteArray, http: HTTPRequest) -> void:
 	http.queue_free()

@@ -76,4 +76,5 @@ mouse_default_cursor_shape = 2
 text = "Submit Score"
 
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/CountryButton" to="." method="_on_country_button_pressed"]
+[connection signal="text_changed" from="VBoxContainer/HBoxContainer/NameInput" to="." method="_on_name_input_text_changed"]
 [connection signal="pressed" from="VBoxContainer/SubmitButton" to="." method="submit_score"]
